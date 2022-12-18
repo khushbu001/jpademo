@@ -1,5 +1,7 @@
 package com.employee.employeemanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +22,8 @@ public class EmpFamily {
 	private String relation;
 
 	@ManyToOne
-	@JoinColumn(name = "EMP_ID")
+	@JoinColumn(name = "emp_Id")
+	@JsonIgnoreProperties("employee")
 	private Employee employee;
 
 	public EmpFamily() {

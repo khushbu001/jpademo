@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.employee.employeemanagement.entity.EmpDept;
 import com.employee.employeemanagement.entity.Employee;
 import com.employee.employeemanagement.service.EmployeeService;
+import com.fasterxml.jackson.core.JsonParseException;
 
 //@EnableSwagger2
 @RestController
@@ -36,7 +37,7 @@ public class EmployeeController {
 
 	// @ApiOperation("This API will use to create the employee entity")
 	@PostMapping(value = "/employees")
-	public ResponseEntity<Object> createEmployee(@RequestBody Employee employee) {
+	public ResponseEntity<Object> createEmployee(@RequestBody Employee employee) throws JsonParseException {
 
 		logger.info("EmployeeController::createEmployee::Start");
 

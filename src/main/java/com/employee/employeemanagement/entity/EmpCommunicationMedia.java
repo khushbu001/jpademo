@@ -10,11 +10,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class EmpCommunicationMedia implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class EmpCommunicationMedia  {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long empCommId;

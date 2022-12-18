@@ -1,6 +1,5 @@
 package com.employee.employeemanagement.entity;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -25,17 +24,9 @@ public class EmpDept {
 	@JoinColumn(name = "EMP_ID")
 	private Employee employee;
 
-	@OneToOne(mappedBy = "empDept1", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("empDeptLocation1")
-	private EmpDeptLocation empDeptLocation1;
-
-	/*
-	 * @OneToOne(mappedBy = "empDept1", cascade = CascadeType.ALL, fetch =
-	 * FetchType.LAZY)
-	 * 
-	 * @JsonIgnoreProperties("empDeptLocation2") private EmpDeptLocation
-	 * empDeptLocation2;
-	 */
+	@OneToOne(mappedBy = "empDept", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnoreProperties("empDeptLocation")
+	private EmpDeptLocation empDeptLocation;
 
 	@OneToOne(mappedBy = "empDept", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnoreProperties("empproject")
@@ -45,16 +36,14 @@ public class EmpDept {
 		super();
 	}
 
-	@JsonCreator
-	public EmpDept(Long empDeptID, String deptName, String manager, Employee employee, EmpDeptLocation empDeptLocation1,
-			 EmpProject empproject) {
+	public EmpDept(Long empDeptID, String deptName, String manager, Employee employee, EmpDeptLocation empDeptLocation,
+			EmpProject empproject) {
 		super();
 		this.empDeptID = empDeptID;
 		this.deptName = deptName;
 		this.manager = manager;
 		this.employee = employee;
-		this.empDeptLocation1 = empDeptLocation1;
-		//this.empDeptLocation2 = empDeptLocation2;
+		this.empDeptLocation = empDeptLocation;
 		this.empproject = empproject;
 	}
 
@@ -90,20 +79,13 @@ public class EmpDept {
 		this.employee = employee;
 	}
 
-	public EmpDeptLocation getEmpDeptLocation1() {
-		return empDeptLocation1;
+	public EmpDeptLocation getEmpDeptLocation() {
+		return empDeptLocation;
 	}
 
-	public void setEmpDeptLocation1(EmpDeptLocation empDeptLocation1) {
-		this.empDeptLocation1 = empDeptLocation1;
+	public void setEmpDeptLocation(EmpDeptLocation empDeptLocation) {
+		this.empDeptLocation = empDeptLocation;
 	}
-
-	/*
-	 * public EmpDeptLocation getEmpDeptLocation2() { return empDeptLocation2; }
-	 * 
-	 * public void setEmpDeptLocation2(EmpDeptLocation empDeptLocation2) {
-	 * this.empDeptLocation2 = empDeptLocation2; }
-	 */
 
 	public EmpProject getEmpproject() {
 		return empproject;
@@ -116,8 +98,7 @@ public class EmpDept {
 	@Override
 	public String toString() {
 		return "EmpDept [empDeptID=" + empDeptID + ", deptName=" + deptName + ", manager=" + manager + ", employee="
-				+ employee + ", empDeptLocation1=" + empDeptLocation1 + ", empDeptLocation2=" 
-				+ ", empproject=" + empproject + "]";
+				+ employee + ", empDeptLocation=" + empDeptLocation + ", empproject=" + empproject + "]";
 	}
 
 }

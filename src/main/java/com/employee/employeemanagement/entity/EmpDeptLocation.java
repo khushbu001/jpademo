@@ -1,5 +1,7 @@
 package com.employee.employeemanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,25 +16,24 @@ public class EmpDeptLocation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long deptLocationId;
 	private String locationName;
-	@OneToOne // a (empDept1)is foriegn key of table b
+	@OneToOne // b (empDept1)is foriegn key of table B
 	@JoinColumn(name = "EMP_Dept1")
-	private EmpDept empDept1;
-	// @OneToOne // b(empDept2) is foreign key of table b
-	// multiple representation of same entity will raise exception
-	/*
-	 * @JoinColumn(name = "EMP_Dept2") private EmpDept empDept2;
-	 */
+	private EmpDept empDept;
+	@OneToOne // a (Employee)is foriegn key of table A
+	@JoinColumn(name = "EMP_ID")
+	@JsonIgnoreProperties("employee")
+	private Employee employee;
 
 	public EmpDeptLocation() {
 		super();
 	}
 
-	public EmpDeptLocation(Long deptLocationId, String locationName, EmpDept empDept1) {
+	public EmpDeptLocation(Long deptLocationId, String locationName, EmpDept empDept, Employee employee) {
 		super();
 		this.deptLocationId = deptLocationId;
 		this.locationName = locationName;
-		this.empDept1 = empDept1;
-		// this.empDept2 = empDept2;
+		this.empDept = empDept;
+		this.employee = employee;
 	}
 
 	public Long getDeptLocationId() {
@@ -51,24 +52,27 @@ public class EmpDeptLocation {
 		this.locationName = locationName;
 	}
 
-	public EmpDept getEmpDept1() {
-		return empDept1;
+	public EmpDept getEmpDept() {
+		return empDept;
 	}
 
-	public void setEmpDept1(EmpDept empDept1) {
-		this.empDept1 = empDept1;
+	public void setEmpDept(EmpDept empDept) {
+		this.empDept = empDept;
 	}
 
-	/*
-	 * public EmpDept getEmpDept2() { return empDept2; }
-	 * 
-	 * public void setEmpDept2(EmpDept empDept2) { this.empDept2 = empDept2; }
-	 */
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 
 	@Override
 	public String toString() {
-		return "EmpDeptLocation [deptLocationId=" + deptLocationId + ", locationName=" + locationName + ", empDept1="
-				+ empDept1 + "]";
+		return "EmpDeptLocation [deptLocationId=" + deptLocationId + ", locationName=" + locationName + ", empDept="
+				+ empDept + ", employee=" + employee + "]";
 	}
 
+	
 }

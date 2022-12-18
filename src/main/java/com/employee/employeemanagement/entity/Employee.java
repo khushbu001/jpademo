@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
-@Entity//table A
+@Entity // table A
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,24 +24,27 @@ public class Employee {
 	private Integer age;
 
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("employee")
+	@JsonIgnoreProperties("empFamily")
 	private Set<EmpFamily> empFamily;
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("employee")
+	@JsonIgnoreProperties("empAddress")
 	private Set<EmpAddress> empAddress;
 	@OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("employee")
+	@JsonIgnoreProperties("comMedia")
 	private EmpCommunicationMedia comMedia;
 	@OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("employee")
+	@JsonIgnoreProperties("empDept")
 	private EmpDept empDept;
+	@OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnoreProperties("empDeptLocation")
+	private EmpDeptLocation empDeptLocation;
 
 	public Employee() {
 		super();
 	}
 
 	public Employee(Long empId, String name, Integer age, Set<EmpFamily> empFamily, Set<EmpAddress> empAddress,
-			EmpCommunicationMedia comMedia, EmpDept empDept) {
+			EmpCommunicationMedia comMedia, EmpDept empDept, EmpDeptLocation empDeptLocation) {
 		super();
 		this.empId = empId;
 		this.name = name;
@@ -50,6 +53,7 @@ public class Employee {
 		this.empAddress = empAddress;
 		this.comMedia = comMedia;
 		this.empDept = empDept;
+		this.empDeptLocation = empDeptLocation;
 	}
 
 	public Long getEmpId() {
@@ -108,11 +112,18 @@ public class Employee {
 		this.empDept = empDept;
 	}
 
+	public EmpDeptLocation getEmpDeptLocation() {
+		return empDeptLocation;
+	}
+
+	public void setEmpDeptLocation(EmpDeptLocation empDeptLocation) {
+		this.empDeptLocation = empDeptLocation;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", name=" + name + ", age=" + age + ", empFamily=" + empFamily
-				+ ", empAddress=" + empAddress + ", comMedia=" + comMedia + ", empDept=" + empDept + "]";
+				+ ", empAddress=" + empAddress + ", comMedia=" + comMedia + ", empDept=" + empDept
+				+ ", empDeptLocation=" + empDeptLocation + "]";
 	}
-
-	
 }
